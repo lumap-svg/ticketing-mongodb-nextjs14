@@ -34,3 +34,19 @@ export const fetchTickets = async () => {
     NextResponse.json({ message: "Error", err }, { status: 505 });
   }
 };
+
+export const deleteTicket = async (id: string) => {
+  console.log(id);
+  try {
+    await Ticket.findByIdAndDelete(id);
+    NextResponse.json({ message: "Success deleting ticket" }, { status: 200 });
+    console.log("deleted ticket");
+    revalidatePath("/");
+    redirect("/");
+  } catch (err) {
+    NextResponse.json(
+      { message: "Error deleting ticket", err },
+      { status: 505 }
+    );
+  }
+};
