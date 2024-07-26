@@ -17,7 +17,8 @@ export default async function Home() {
         <TicketCard />
         <TicketCard />
       </div>
-      {tickets && tickets.map((ticket) => <h2>{ticket.title}</h2>)}
+      {tickets &&
+        tickets.map((ticket) => <h2 key={ticket._id}>{ticket.title}</h2>)}
     </div>
   );
 }
