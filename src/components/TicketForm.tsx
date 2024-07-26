@@ -120,7 +120,7 @@ export default function TicketForm() {
         <option value="started">started</option>
         <option value="done">Done</option>
       </select>
-      <input type="button" value="Create Ticket" className="btn" />
+      <input type="submit" value="Create Ticket" className="btn" />
     </form>
   );
 }

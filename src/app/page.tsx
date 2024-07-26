@@ -1,7 +1,11 @@
 import TicketCard from "@/components/TicketCard";
 import Image from "next/image";
+import { fetchTickets } from "./lib/actions";
 
-export default function Home() {
+export default async function Home() {
+  const tickets = await fetchTickets();
+  console.log("pingting sdabfhkbhasbf");
+  console.log(tickets);
   return (
     <div className=" p-5">
       <h2 className="text-center">home page</h2>
@@ -13,6 +17,7 @@ export default function Home() {
         <TicketCard />
         <TicketCard />
       </div>
+      {tickets && tickets.map((ticket) => <h2>{ticket.title}</h2>)}
     </div>
   );
 }
