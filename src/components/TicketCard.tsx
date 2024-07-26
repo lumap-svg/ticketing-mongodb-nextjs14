@@ -5,6 +5,7 @@ import ProgressDisplay from "./ProgressDisplay";
 import StatusDisplay from "./StatusDisplay";
 import { ticketT } from "@/app/lib/definition";
 import { deleteTicket } from "@/app/lib/actions";
+import Link from "next/link";
 
 type tick = {
   tick: ticketT;
@@ -21,7 +22,8 @@ export default function TicketCard({ tick }: tick) {
   //   }
   //   const date = new Date(timestamp).toLocaleString('en-US', options)
   // }
-  const deleteTicketWithId = deleteTicket.bind(null, tick._id.toString());
+  const id = tick._id.toString();
+  const deleteTicketWithId = deleteTicket.bind(null, id);
 
   return (
     <div className="flex flex-col bg-slate-700 hover:bg-slate-500 rounded-md shadow-lg m-2 p-3">
@@ -31,22 +33,24 @@ export default function TicketCard({ tick }: tick) {
           <DeleteBlock deleteFun={deleteTicketWithId} />
         </div>
       </div>
-      <h4>{tick.title}</h4>
-      <hr className="mb-2 h-px border-0 bg-slate-900" />
-      <p className="whitespace-pre-wrap">{tick.description}</p>
-      <div className="flex-grow"></div>
-      <div className="flex mt-2">
-        <div className="flex flex-col">
-          <p className="text-sm my-1">{tick.category}</p>
-
-          <p className="text-sm my-1">{tick.createdAt.toLocaleDateString()}</p>
-
-          <ProgressDisplay progress={tick.progress} />
+      <Link href={`/ticketpage/${id}`} style={{ display: "content" }}>
+        <h4>{tick.title}</h4>
+        <hr className="mb-2 h-px border-0 bg-slate-900" />
+        <p className="whitespace-pre-wrap">{tick.description}</p>
+        <div className="flex-grow"></div>
+        <div className="flex mt-2">
+          <div className="flex flex-col">
+            <p className="text-sm my-1">{tick.category}</p>
+            <p className="text-sm my-1">
+              {tick.createdAt.toLocaleDateString()}
+            </p>
+            <ProgressDisplay progress={tick.progress} />
+          </div>
+          <div className="ml-auto flex items-end">
+            <StatusDisplay status={tick.status} />
+          </div>
         </div>
-        <div className="ml-auto flex items-end">
-          <StatusDisplay status={tick.status} />
-        </div>
-      </div>
+      </Link>
     </div>
   );
 }

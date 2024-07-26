@@ -3,6 +3,7 @@ import Ticket from "@/(models)/Ticket";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
+import { ticketT } from "./definition";
 
 export const createTicket = async (formData: FormData) => {
   try {
@@ -49,4 +50,20 @@ export const deleteTicket = async (id: string) => {
       { status: 505 }
     );
   }
+};
+export const getTicket = async (id: string) => {
+  try {
+    const response = await Ticket.findById(id);
+    console.log(response._doc);
+
+    return await response._doc;
+  } catch (err) {
+    NextResponse.json(
+      { message: "Error geting ticket by id", err },
+      { status: 505 }
+    );
+  }
+};
+export const updateTicket = async (id: string) => {
+  console.log(id);
 };

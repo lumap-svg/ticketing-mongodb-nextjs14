@@ -1,15 +1,11 @@
-import { createTicket } from "@/app/lib/actions";
+import EditForm from "@/components/EditForm";
 import TicketForm from "@/components/TicketForm";
 import React from "react";
 
-export default function page() {
+export default function page({ params }: { params: { id: string } }) {
   return (
     <div className="flex justify-center ">
-      <TicketForm />
-      {/* <form action={createTicket}>
-        <input type="text" name="text" />
-        <button type="submit">Shoot</button>
-      </form> */}
+      {params.id === "new" ? <TicketForm /> : <EditForm id={params.id} />}
     </div>
   );
 }
