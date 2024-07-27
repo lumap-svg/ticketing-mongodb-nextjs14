@@ -40,7 +40,6 @@ export default function TicketCard({ tick }: tick) {
         <div className="flex-grow"></div>
         <div className="flex mt-2">
           <div className="flex flex-col">
-            <p className="text-sm my-1">{tick.category}</p>
             <p className="text-sm my-1">
               {tick.createdAt.toLocaleDateString()}
             </p>

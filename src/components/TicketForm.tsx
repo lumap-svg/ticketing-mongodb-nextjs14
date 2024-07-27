@@ -4,14 +4,16 @@ import { createTicket } from "@/app/lib/actions";
 import { useState } from "react";
 
 export default function TicketForm() {
-  const [formData, setFormData] = useState({
+  const initialState = {
     title: "",
     description: "",
     category: "Hardware problems",
     priority: 1,
     progress: 20,
     status: "not started",
-  });
+  };
+
+  const [formData, setFormData] = useState(initialState);
 
   return (
     <form action={createTicket} className="flex flex-col gap-1  w-1/2">

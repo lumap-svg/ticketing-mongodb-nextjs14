@@ -54,9 +54,9 @@ export const deleteTicket = async (id: string) => {
 export const getTicket = async (id: string) => {
   try {
     const response = await Ticket.findById(id);
-    console.log(response._doc);
+    const ticket: ticketT = await response._doc;
 
-    return await response._doc;
+    return ticket;
   } catch (err) {
     NextResponse.json(
       { message: "Error geting ticket by id", err },
@@ -64,6 +64,25 @@ export const getTicket = async (id: string) => {
     );
   }
 };
-export const updateTicket = async (id: string) => {
-  console.log(id);
+export const updateTicket = async (id: string, formData: FormData) => {
+  console.log("updating ticket", id);
+  try {
+    const rawFormdata = {
+      title: formData.get("title"),
+      description: formData.get("description"),
+      category: formData.get("category"),
+      priority: formData.get("priority"),
+      progress: formData.get("progress"),
+      status: formData.get("status"),
+    };
+    const result = await Ticket.findByIdAndUpdate(id, rawFormdata, {
+      new: true,
+    });
+    console.log("updated record", result);
+    NextResponse.json({ message: "Ticket created" }, { status: 201 });
+  } catch (err) {
+    NextResponse.json({ message: "Error", err }, { status: 505 });
+  }
+  revalidatePath("/ticketpage/");
+  redirect("/");
 };
